@@ -19,7 +19,10 @@ def load_model_and_selector():
         rfe_selector = joblib.load('rfe_selector.pkl')
         return model, rfe_selector
     except FileNotFoundError:
-        st.error("Model or RFE selector files not found. Please upload 'model.pkl' and 'rfe_selector.pkl'.")
+        st.error("Error: Model or RFE selector files not found. Please upload 'model.pkl' and 'rfe_selector.pkl' to the same directory as this script.")
+        return None, None
+    except Exception as e:
+        st.error(f"An unexpected error occurred while loading the model files. This may be due to a library version mismatch. Error details: {e}")
         return None, None
 
 model, rfe_selector = load_model_and_selector()
